@@ -1,0 +1,9 @@
+env:
+  mocha: true
+rules:
+  no-extend-native: off
+  no-unused-expressions: off
+  no-unused-vars: off
+  no-undef: off
+  eqeqeq: off
+  handle-callback-err: off
