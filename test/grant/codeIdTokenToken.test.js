@@ -1,50 +1,49 @@
-var chai = require('chai')
-  , codeIdTokenToken = require('../../lib/grant/codeIdTokenToken');
-  
-  
+var chai = require('chai');
+var codeIdTokenToken = require('../../lib/grant/codeIdTokenToken');
+
 describe('grant.codeIdTokenToken', function() {
-  
   describe('module', function() {
-    var mod = codeIdTokenToken(function(){}, function(){}, function(){});
-    
+    var mod = codeIdTokenToken(function() {}, function() {}, function() {});
+
     it('should be named code token', function() {
       expect(mod.name).to.equal('code id_token token');
     });
-    
+
     it('should expose request and response functions', function() {
       expect(mod.request).to.be.a('function');
       expect(mod.response).to.be.a('function');
     });
   });
-  
+
   it('should throw if constructed without a issueToken callback', function() {
     expect(function() {
       codeIdTokenToken();
     }).to.throw(TypeError, 'oauth2orize-openid.codeIDTokenToken grant requires an issueToken callback');
   });
-  
+
   it('should throw if constructed without a issueCode callback', function() {
     expect(function() {
-      codeIdTokenToken(function(){});
+      codeIdTokenToken(function() {});
     }).to.throw(TypeError, 'oauth2orize-openid.codeIDTokenToken grant requires an issueCode callback');
   });
-  
+
   it('should throw if constructed without a issueIDToken callback', function() {
     expect(function() {
-      codeIdTokenToken(function(){}, function(){});
+      codeIdTokenToken(function() {}, function() {});
     }).to.throw(TypeError, 'oauth2orize-openid.codeIDTokenToken grant requires an issueIDToken callback');
   });
-  
+
   describe('request parsing', function() {
-    function issueToken(){}
-    function issueCode(){}
-    function issueIDToken(){}
-    
+    function issueToken() {}
+    function issueCode() {}
+    function issueIDToken() {}
+
     describe('request', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -59,11 +58,11 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should not error', function() {
         expect(err).to.be.null;
       });
-      
+
       it('should parse request', function() {
         expect(out.clientID).to.equal('c123');
         expect(out.redirectURI).to.equal('http://example.com/auth/callback');
@@ -72,12 +71,13 @@ describe('grant.codeIdTokenToken', function() {
         expect(out.nonce).to.equal('n123');
       });
     });
-    
+
     describe('request with scope', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -93,11 +93,11 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should not error', function() {
         expect(err).to.be.null;
       });
-      
+
       it('should parse request', function() {
         expect(out.clientID).to.equal('c123');
         expect(out.redirectURI).to.equal('http://example.com/auth/callback');
@@ -108,12 +108,13 @@ describe('grant.codeIdTokenToken', function() {
         expect(out.nonce).to.equal('n123');
       });
     });
-    
+
     describe('request with list of scopes', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -129,11 +130,11 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should not error', function() {
         expect(err).to.be.null;
       });
-      
+
       it('should parse request', function() {
         expect(out.clientID).to.equal('c123');
         expect(out.redirectURI).to.equal('http://example.com/auth/callback');
@@ -145,12 +146,13 @@ describe('grant.codeIdTokenToken', function() {
         expect(out.nonce).to.equal('n123');
       });
     });
-    
+
     describe('request with list of scopes using scope separator option', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken({ scopeSeparator: ',' }, issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken({ scopeSeparator: ',' }, issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -166,11 +168,11 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should not error', function() {
         expect(err).to.be.null;
       });
-      
+
       it('should parse request', function() {
         expect(out.clientID).to.equal('c123');
         expect(out.redirectURI).to.equal('http://example.com/auth/callback');
@@ -182,12 +184,13 @@ describe('grant.codeIdTokenToken', function() {
         expect(out.nonce).to.equal('n123');
       });
     });
-    
+
     describe('request with list of scopes separated by space using multiple scope separator option', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken({ scopeSeparator: [' ', ','] }, issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken({ scopeSeparator: [' ', ','] }, issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -203,11 +206,11 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should not error', function() {
         expect(err).to.be.null;
       });
-      
+
       it('should parse request', function() {
         expect(out.clientID).to.equal('c123');
         expect(out.redirectURI).to.equal('http://example.com/auth/callback');
@@ -219,12 +222,13 @@ describe('grant.codeIdTokenToken', function() {
         expect(out.nonce).to.equal('n123');
       });
     });
-    
+
     describe('request with list of scopes separated by comma using multiple scope separator option', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken({ scopeSeparator: [' ', ','] }, issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken({ scopeSeparator: [' ', ','] }, issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -240,11 +244,11 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should not error', function() {
         expect(err).to.be.null;
       });
-      
+
       it('should parse request', function() {
         expect(out.clientID).to.equal('c123');
         expect(out.redirectURI).to.equal('http://example.com/auth/callback');
@@ -256,12 +260,13 @@ describe('grant.codeIdTokenToken', function() {
         expect(out.nonce).to.equal('n123');
       });
     });
-    
+
     describe('request with missing client_id parameter', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.redirect_uri = 'http://example.com/auth/callback';
@@ -275,7 +280,7 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should error', function() {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.constructor.name).to.equal('AuthorizationError');
@@ -286,9 +291,10 @@ describe('grant.codeIdTokenToken', function() {
 
     describe('request with invalid client_id parameter', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = ['c123', 'c123'];
@@ -303,7 +309,7 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should error', function() {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.constructor.name).to.equal('AuthorizationError');
@@ -314,9 +320,10 @@ describe('grant.codeIdTokenToken', function() {
 
     describe('with missing nonce parameter', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -330,7 +337,7 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should error', function() {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.constructor.name).to.equal('AuthorizationError');
@@ -341,9 +348,10 @@ describe('grant.codeIdTokenToken', function() {
 
     describe('request with invalid nonce parameter', function() {
       var err, out;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -358,7 +366,7 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should error', function() {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.constructor.name).to.equal('AuthorizationError');
@@ -371,7 +379,8 @@ describe('grant.codeIdTokenToken', function() {
       var err, out;
 
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .req(function(req) {
             req.query = {};
             req.query.client_id = 'c123';
@@ -387,7 +396,7 @@ describe('grant.codeIdTokenToken', function() {
           })
           .authorize();
       });
-      
+
       it('should error', function() {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.constructor.name).to.equal('AuthorizationError');
@@ -396,9 +405,8 @@ describe('grant.codeIdTokenToken', function() {
       });
     });
   });
-  
+
   describe('decision handling', function() {
-    
     describe('transaction', function() {
       function issueToken(client, user, ares, areq, locals, done) {
         expect(client.id).to.equal('c123');
@@ -409,10 +417,10 @@ describe('grant.codeIdTokenToken', function() {
         expect(areq.redirectURI).to.equal('http://example.com/auth/callback');
         expect(areq.nonce).to.equal('n-0S6_WzA2Mj');
         expect(locals.foo).to.equal('bar');
-        
+
         return done(null, 'at-xyz');
       }
-      
+
       function issueCode(client, redirectURI, user, ares, areq, locals, done) {
         expect(client.id).to.equal('c123');
         expect(client.name).to.equal('Example');
@@ -426,28 +434,28 @@ describe('grant.codeIdTokenToken', function() {
 
         return done(null, 'c-123');
       }
-      
+
       function issueIDToken(client, user, ares, areq, opts, done) {
         expect(client.id).to.equal('c123');
         expect(user.id).to.equal('u123');
         expect(areq.nonce).to.equal('n-0S6_WzA2Mj');
         expect(opts.accessToken).to.equal('at-xyz');
         expect(opts.authorizationCode).to.equal('c-123');
-        
+
         return done(null, 'idtoken');
       }
-      
-      
+
       var response;
-      
+
       before(function(done) {
-        chai.oauth2orize.grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
+        chai.oauth2orize
+          .grant(codeIdTokenToken(issueToken, issueCode, issueIDToken))
           .txn(function(txn) {
             txn.client = { id: 'c123', name: 'Example' };
             txn.redirectURI = 'http://www.example.com/auth/callback';
             txn.req = {
               redirectURI: 'http://example.com/auth/callback',
-              nonce: 'n-0S6_WzA2Mj'
+              nonce: 'n-0S6_WzA2Mj',
             };
             txn.user = { id: 'u123', name: 'Bob' };
             txn.res = { allow: true };
@@ -459,13 +467,13 @@ describe('grant.codeIdTokenToken', function() {
           })
           .decide();
       });
-      
+
       it('should respond', function() {
         expect(response.statusCode).to.equal(302);
-        expect(response.getHeader('Location')).to.equal('http://www.example.com/auth/callback#access_token=at-xyz&token_type=Bearer&code=c-123&id_token=idtoken');
+        expect(response.getHeader('Location')).to.equal(
+          'http://www.example.com/auth/callback#access_token=at-xyz&token_type=Bearer&code=c-123&id_token=idtoken'
+        );
       });
     });
-    
   });
-  
 });

@@ -1,0 +1,26 @@
+---
+
+extends:
+  - standard
+  - prettier
+
+plugins:
+  - prettier
+  - import
+  - node
+  - promise
+
+parserOptions:
+  ecmaVersion: 2019
+  sourceType: module
+  ecmaFeatures:
+    globalReturn: false
+    impliedStrict: true
+    jsx: true
+
+env:
+  node: true
+  es6: true
+
+rules:
+  prettier/prettier: error
