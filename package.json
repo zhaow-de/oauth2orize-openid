@@ -1,6 +1,6 @@
 {
   "name": "@zhaow-de/oauth2orize-openid",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Extensions to support OpenID Connect with OAuth2orize.",
   "keywords": [
     "openid",
@@ -39,12 +39,12 @@
   ],
   "main": "./lib",
   "dependencies": {
-    "@zhaow-de/oauth2orize": "^1.11.1",
+    "@zhaow-de/oauth2orize": "^1.11.2",
     "utils-merge": "^1.0.1"
   },
   "devDependencies": {
-    "@zhaow-de/chai-connect-middleware": "^0.3.1",
-    "@zhaow-de/chai-oauth2orize-grant": "^0.3.1",
+    "@zhaow-de/chai-connect-middleware": "^0.3.2",
+    "@zhaow-de/chai-oauth2orize-grant": "^0.3.2",
     "chai": "^4.2.0",
     "coveralls": "^3.0.6",
     "eslint": "^6.3.0",

@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/dt/@zhaow-de/oauth2orize-openid)
+![npm (scoped)](https://img.shields.io/npm/v/@zhaow-de/oauth2orize-openid)
 [![Build Status](https://travis-ci.com/zhaow-de/oauth2orize-openid.svg?branch=master)](https://travis-ci.com/zhaow-de/oauth2orize-openid)
 [![Coverage Status](https://coveralls.io/repos/github/zhaow-de/oauth2orize-openid/badge.svg)](https://coveralls.io/github/zhaow-de/oauth2orize-openid)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c694fdb621c4e8fabbd14268f98c883)](https://www.codacy.com/manual/zhaow-de/oauth2orize-openid?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zhaow-de/oauth2orize-openid&amp;utm_campaign=Badge_Grade)
